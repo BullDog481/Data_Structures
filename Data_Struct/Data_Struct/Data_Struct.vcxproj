@@ -144,7 +144,11 @@
   <ItemGroup>
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="BST.h" />
+    <ClInclude Include="BST_Parent.h" />
     <ClInclude Include="Doubly_Linked_List.h" />
+    <ClInclude Include="Graph_Adjacency_List.h" />
+    <ClInclude Include="Graph_Adjacency_Matrix.h" />
+    <ClInclude Include="Graph_List.h" />
     <ClInclude Include="Linked_List.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="Stack_Array.h" />

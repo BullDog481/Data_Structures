@@ -8,6 +8,9 @@
 #include "Queue.h";
 #include "BST.h";
 #include "BinaryTree.h";
+#include "Graph_List.h";
+#include "Graph_Adjacency_Matrix.h";
+#include "Graph_Adjacency_List.h";
 
 //Driver code is contained here
 int main(void) {

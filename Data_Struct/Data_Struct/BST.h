@@ -98,10 +98,10 @@ bool IsSubtreeGreater(BST* root, int value) {
 }
 
 //Check if a tree is a binary search tree -O(n^2) time, O(n) space, n nodes in tree
-bool IsBinarySearchTree(BST* root) {
+bool IsBinarySearchTree1(BST* root) {
 	if (root == nullptr) return true;
 	if (IsSubtreeLesser(root->left, root->data) && IsSubtreeGreater(root->right, root->data)
-		&& IsBinarySearchTree(root->left) && IsBinarySearchTree(root->right))
+		&& IsBinarySearchTree1(root->left) && IsBinarySearchTree1(root->right))
 		return true;
 	else return false;
 }
@@ -150,4 +150,49 @@ BST* Delete(BST* root, int data) {
 		}
 	}
 	return root;
+}
+
+BST* FindMinBST(BST* root) {
+	if (root == nullptr) return nullptr;
+	while (root->left != nullptr)
+		root = root->left;
+	return root;
+}
+
+
+//Find a given node in a BST given the node's data - O(h) time complexity, O(h) space
+BST* Find(BST* root, int data) {
+	if (root == nullptr) return root;
+	else if (root->data == data) return root;
+	else if (data <= root->data) return Find(root->left, data);
+	else return Find(root->right, data);
+	}
+
+
+
+//Function to find the inorder traversal successor of a given node's data value
+//Overall this function is O(h), where h is the height of the tree
+BST* Getsuccessor(BST* root, int data) {
+	//Search the node - O(h), h is the height of the tree
+	BST* current = Find(root, data);
+	if (current == nullptr) return nullptr;
+	//Case 1: Node has right subtree
+	if (current->right != nullptr) {
+		return FindMinBST(current->right);
+	}
+	//Case 2: No right subtree - O(h)
+	else {
+		BST* successor = nullptr;
+		BST* ancestor = root;
+		while (ancestor != current) {
+			if (current->data < ancestor->data) {
+				successor = ancestor; //so far this is the deepest node for which the current node is in the left subtree
+				ancestor = ancestor->left;
+			}
+			else {
+				ancestor = ancestor->right;
+			}
+		}
+		return successor;
+	}
 }
