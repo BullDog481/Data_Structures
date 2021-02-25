@@ -77,7 +77,7 @@ int FindMin_Recur(BST* rootPtr) {
 }
 
 
-//O(n) time complexity, O(n) space complexity
+//O(n) time complexity, O(h) space complexity h is tree height, n is number of nodes
 int FindHeight(BST* root) {
 	if (root == nullptr) return -1;
 	return std::max(FindHeight(root->left), FindHeight(root->right)) + 1;
@@ -108,13 +108,16 @@ bool IsBinarySearchTree1(BST* root) {
 
 //This algorithm uses less space for the recursive calls - O(n) time, O(n) space
 bool IsBSTUtil(BST* root, int minValue, int maxValue) {
-	if (root == nullptr) return true;
-	if (root->data > minValue
-		&& root->data < maxValue
-		&& IsBSTUtil(root->left, minValue, root->data)
-		&& IsBSTUtil(root->right, root->data, maxValue))
-		return true;
-	else return false;
+	if (root->data < minValue || root->data >= maxValue) {
+		return false;
+	}
+	if (root->left != nullptr && !IsBSTUtil(root->left, minValue, root->data)) {
+		return false;
+	}
+	if (root->right != nullptr && !IsBSTUtil(root->right, root->data, maxValue)) {
+		return false;
+	}
+	return true;
 }
 
 bool IsBinarySearchTree(BST* root) {
